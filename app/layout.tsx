@@ -3,11 +3,11 @@ import { Inter } from 'next/font/google';
 import Layout from './theme/Layout/Layout';
 import { Topbar } from './components/Topbar';
 import { getServerSession } from 'next-auth';
-import { handler } from '../app/api/auth/[...nextauth]/route';
+import { nextAuthOptions } from '../app/api/auth/[...nextauth]/route';
 const inter = Inter({ subsets: ['latin'] });
 
 const getSessionData = async () => {
-    const sessionData = await getServerSession(handler);
+    const sessionData = await getServerSession(nextAuthOptions);
     return sessionData;
 };
 

@@ -18,10 +18,10 @@ import { signIn, signOut, useSession } from 'next-auth/react';
 
 const Topbar = (props: any) => {
     const { colorMode, toggleColorMode } = useColorMode();
-    const router = useRouter();
     const session = useSession();
     const handleLogin = () =>
         session.status === 'authenticated' ? signOut() : signIn();
+    const router = useRouter();
     return (
         <Box mb={'2rem'}>
             <Box borderRadius={'lg'}>
@@ -33,7 +33,13 @@ const Topbar = (props: any) => {
                         alt="logo"
                     />
                     <VStack>
-                        <Heading textAlign="center">Discover Local</Heading>
+                        <Heading
+                            onClick={() => router.push('/')}
+                            textAlign="center"
+                            sx={{ cursor: 'pointer' }}
+                        >
+                            Discover Local
+                        </Heading>
                         {session?.status === 'authenticated' &&
                             session?.data?.user && (
                                 <Text fontStyle={'italic'}>
@@ -46,7 +52,8 @@ const Topbar = (props: any) => {
 
                     <HStack mr="10" alignItems="center" spacing="2.2rem">
                         <Button onClick={handleLogin} variant={'outline'}>
-                            {session.status === 'authenticated'
+                            {session.status === 'authenticated' &&
+                            session?.data?.user
                                 ? 'Logout'
                                 : 'Login'}
                         </Button>
